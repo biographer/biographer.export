@@ -14,16 +14,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * This servlet can be used 
+ * 
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @WebServlet(name = "Transcoder",
             urlPatterns = {"/transcode"})
 public class Transcoder extends HttpServlet {
 
+    /**
+     * URL request parameter which holds the target format
+     */
     private static final String FORMAT_PARAMETER = "format";
+    
+    /**
+     * URL request parameter which holds the input SVG
+     */
     private static final String DATA_PARAMETER = "data";
     
+    /**
+     * This date format is used for the generation of a file name.
+     */
     private static final DateFormat DATE_FORMAT =
             new SimpleDateFormat("yyyy-MM-dd");
     
@@ -59,6 +70,13 @@ public class Transcoder extends HttpServlet {
         
     }
     
+    /**
+     * Retrieve the target export format for the given request.
+     * 
+     * @param req The request for which the format shall be identified
+     * @return The format which was set through the format request parameter.
+     * If no format could be identified null will be returned.
+     */
     private Format getFormat(HttpServletRequest req) {
         String format = req.getParameter(FORMAT_PARAMETER);
         
@@ -73,6 +91,12 @@ public class Transcoder extends HttpServlet {
         }
     }
     
+    /**
+     * Set HTTP headers for the given format.
+     * 
+     * @param format The format for which the headers shall be set.
+     * @param resp The HTTP response for which the headers should be set.
+     */
     private void setHeaders(Format format, HttpServletResponse resp) {
         String header =  "attachment;filename=\""
                 .concat(getFileName(format))
@@ -82,6 +106,9 @@ public class Transcoder extends HttpServlet {
         resp.setContentType(format.getContentType());
     }
     
+    /**
+     * Generate a filename based on the current time and target format.
+     */
     private String getFileName(Format format) {
         return new StringBuilder()
                 .append("diagram_")
@@ -91,6 +118,15 @@ public class Transcoder extends HttpServlet {
                 .toString();
     }
     
+    /**
+     * Actually start transcoding the input SVG to the target format.
+     * 
+     * @param format The target format for the export process
+     * @param data The SVG which should be converted to the format
+     * @param resp HTTP response through which the output stream can be
+     * retrieved
+     * @throws IOException 
+     */
     private void transcode(Format format, String data,
             HttpServletResponse resp) throws IOException {
         new SVGExport().setInputAsString(data)

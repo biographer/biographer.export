@@ -9,6 +9,30 @@
 
     <name>SVG exporter</name>
 
+    <organization>
+        <name>Biographer development team</name>
+        <url>http://code.google.com/p/biographer/</url>
+    </organization>
+    
+    <mailingLists>
+        <mailingList>
+            <name>Developer mailing list</name>
+            <archive>http://groups.google.com/group/biographer-dev</archive>
+        </mailingList>
+        <mailingList>
+            <name>Discussion group</name>
+            <archive>http://groups.google.com/group/biographer</archive>
+        </mailingList>
+    </mailingLists>
+
+    <developers>
+        <developer>
+            <name>Ben Ripens</name>
+            <email>bripkens.dev@gmail.com</email>
+            <url>http://www.bripkens.de</url>
+        </developer>
+    </developers>
+
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
